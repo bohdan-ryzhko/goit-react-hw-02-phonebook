@@ -20,6 +20,7 @@ export class Phonebook extends Component {
 
 	render() {
 		const { contacts } = this.state;
+		console.log(contacts);
 		return (
 			<>
 				<Form getContacts={this.getContacts} />
@@ -29,7 +30,7 @@ export class Phonebook extends Component {
 					<>
 						<h2>Contacts</h2>
 						<ul className="contacts__list">
-							{contacts.map(({ value, id }) => <li key={id}>{value}</li>)}
+							{contacts.map(({ value, id, number }) => <li key={id}>{value}: {number}</li>)}
 						</ul>
 					</>
 					

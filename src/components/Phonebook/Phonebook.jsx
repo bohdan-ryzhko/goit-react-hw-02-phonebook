@@ -50,9 +50,9 @@ export class Phonebook extends Component {
 			name.toLowerCase().includes(normalizeFilter));
 	}
 
-	removeContact = ({ target }) => {
+	removeContact = id => () => {
 		this.setState(({ contacts }) => ({
-			contacts: contacts.filter(({ id }) => id !== target.id)
+			contacts: contacts.filter(contact => contact.id !== id)
 		}))
 	}
 

@@ -7,8 +7,6 @@ import { Filter } from "components/Filter/Filter";
 
 export class Phonebook extends Component {
 
-	static isRepeat = false
-
 	state = {
 		contacts: [],
 		filter: "",
@@ -22,18 +20,16 @@ export class Phonebook extends Component {
 
 	getContacts = data => {
 		const { name } = data;
+		const { contacts } = this.state;
 
-		this.state.contacts.forEach(contact => {
-			if (contact.name === name) {
-				this.isRepeat = true;
-				alert(`${name} is already in contacts`);
-			}
-		});
+		const isRepeat = contacts.some(
+			contact => contact.name === name
+		);
 
-		if (this.isRepeat) {
-			this.isRepeat = false;
+		if (isRepeat) {
+			this.notificationAlready(name);
 			return;
-		} 
+		}
 
 		this.setState(prevState => ({
 			contacts: [
@@ -42,6 +38,10 @@ export class Phonebook extends Component {
 			]
 		}));
 	};
+
+	notificationAlready = name => {
+		alert(`${name} is already in contacts`);
+	}
 
 	getFilteredContacts = () => {
 		const { contacts, filter } = this.state;

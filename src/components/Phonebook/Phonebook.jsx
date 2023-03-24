@@ -7,24 +7,34 @@ import { Filter } from "components/Filter/Filter";
 
 export class Phonebook extends Component {
 
+	static isRepeat = false
+
 	state = {
 		contacts: [],
-		filter: ""
+		filter: "",
 	}
 
 	handlerFilter = ({ target: { value } }) => {
 		this.setState({
 			filter: value,
 		});
-
-		// this.setState(({ contacts }) => {
-		// 	return {
-		// 		contacts: contacts.filter(({ name }) => name.includes(value))
-		// 	}
-		// })
 	}
 
 	getContacts = data => {
+		const { name } = data;
+
+		this.state.contacts.forEach(contact => {
+			if (contact.name === name) {
+				this.isRepeat = true;
+				alert(`${name} is already in contacts`);
+			}
+		});
+
+		if (this.isRepeat) {
+			this.isRepeat = false;
+			return;
+		} 
+
 		this.setState(prevState => ({
 			contacts: [
 				...prevState.contacts,

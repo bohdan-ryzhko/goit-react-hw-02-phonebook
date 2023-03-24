@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export const Filter = ({ handlerFilter, value }) => {
 	return (
 		<>
@@ -9,4 +11,9 @@ export const Filter = ({ handlerFilter, value }) => {
 			/>
 		</>
 	)
+}
+
+Filter.propTypes = {
+	handlerFilter: PropTypes.func.isRequired,
+	value: PropTypes.string,
 }

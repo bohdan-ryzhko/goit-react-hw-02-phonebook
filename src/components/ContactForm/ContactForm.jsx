@@ -14,9 +14,6 @@ export class ContactForm extends Component {
 	submitForm = event => {
 		event.preventDefault();
 		const { getContacts } = this.props;
-		const { name, number } = event.target.elements;
-
-		this.setState({ name: name.value, number: number.value });
 
 		getContacts({
 			...this.state,

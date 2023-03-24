@@ -21,7 +21,6 @@ export class Phonebook extends Component {
 	getContacts = data => {
 		const { name } = data;
 		const { contacts } = this.state;
-		console.log(data);
 
 		const isRepeat = contacts.some(
 			contact => contact.name === name

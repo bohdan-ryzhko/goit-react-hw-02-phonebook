@@ -13,17 +13,14 @@ export class ContactForm extends Component {
 
 	submitForm = event => {
 		event.preventDefault();
+		const { getContacts } = this.props;
+		const { name, number } = event.target.elements;
 
-		const { name: { name, value, id } } = event.target;
+		this.setState({ name: name.value, number: number.value });
 
-		this.setState({ [name]: value });
-
-		const { number } = this.state;
-
-		this.props.getContacts({
-			name: value,
-			id,
-			number
+		getContacts({
+			...this.state,
+			id: nanoid(),
 		});
 
 		this.reset();

@@ -1,12 +1,27 @@
 import { Component } from "react";
-import { Form } from "components/Form/Form";
+import { ContactForm } from "components/ContactForm/ContactForm";
 
 import PropTypes from 'prop-types';
+import { ContactList } from "components/ContactList/ContactList";
+import { Filter } from "components/Filter/Filter";
 
 export class Phonebook extends Component {
 
 	state = {
 		contacts: [],
+		filter: ""
+	}
+
+	handlerFilter = ({ target: { value } }) => {
+		this.setState({
+			filter: value,
+		});
+
+		// this.setState(({ contacts }) => {
+		// 	return {
+		// 		contacts: contacts.filter(({ name }) => name.includes(value))
+		// 	}
+		// })
 	}
 
 	getContacts = data => {
@@ -19,21 +34,25 @@ export class Phonebook extends Component {
 	};
 
 	render() {
-		const { contacts } = this.state;
-		console.log(contacts);
+		const { contacts, name, filter } = this.state;
+
+		const normalizeFilter = filter.toLowerCase();
+
+		const filteredContacts = contacts.filter(({ name }) =>
+				name.toLowerCase().includes(normalizeFilter));
+
 		return (
 			<>
-				<Form getContacts={this.getContacts} />
+				<h1>Phonebook</h1>
+				<ContactForm getContacts={this.getContacts} />
 				{
 					contacts.length > 0
 					&&
 					<>
 						<h2>Contacts</h2>
-						<ul className="contacts__list">
-							{contacts.map(({ value, id, number }) => <li key={id}>{value}: {number}</li>)}
-						</ul>
+						<Filter value={name} handlerFilter={this.handlerFilter} />
+						<ContactList list={filteredContacts} />
 					</>
-					
 				}
 			</>
 		)

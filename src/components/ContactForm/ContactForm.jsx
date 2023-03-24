@@ -1,10 +1,10 @@
-import css from "./Form.module.css";
+import css from "./ContactForm.module.css";
 import { Component } from "react";
 import { nanoid } from 'nanoid/non-secure';
 
 import PropTypes from 'prop-types';
 
-export class Form extends Component {
+export class ContactForm extends Component {
 
 	state = {
 		name: '',
@@ -20,7 +20,11 @@ export class Form extends Component {
 
 		const { number } = this.state;
 
-		this.props.getContacts({ value, id, number });
+		this.props.getContacts({
+			name: value,
+			id,
+			number
+		});
 
 		this.reset();
 	}
@@ -71,6 +75,6 @@ export class Form extends Component {
 	}
 }
 
-Form.propTypes = {
+ContactForm.propTypes = {
 	name: PropTypes.string,
 }

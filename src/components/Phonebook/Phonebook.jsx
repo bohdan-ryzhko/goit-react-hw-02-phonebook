@@ -43,13 +43,23 @@ export class Phonebook extends Component {
 		}));
 	};
 
-	render() {
-		const { contacts, name, filter } = this.state;
-
+	getFilteredContacts = () => {
+		const { contacts, filter } = this.state;
 		const normalizeFilter = filter.toLowerCase();
+		return contacts.filter(({ name }) =>
+			name.toLowerCase().includes(normalizeFilter));
+	}
 
-		const filteredContacts = contacts.filter(({ name }) =>
-				name.toLowerCase().includes(normalizeFilter));
+	removeContact = ({ target }) => {
+		this.setState(({ contacts }) => ({
+			contacts: contacts.filter(({ id }) => id !== target.id)
+		}))
+	}
+
+	render() {
+		const { contacts, name } = this.state;
+
+		const filteredContacts = this.getFilteredContacts();
 
 		return (
 			<>
@@ -61,7 +71,7 @@ export class Phonebook extends Component {
 					<>
 						<h2>Contacts</h2>
 						<Filter value={name} handlerFilter={this.handlerFilter} />
-						<ContactList list={filteredContacts} />
+						<ContactList list={filteredContacts} removeContact={this.removeContact} />
 					</>
 				}
 			</>

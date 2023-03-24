@@ -1,10 +1,21 @@
 import css from "./ContactList.module.css";
 import PropTypes from 'prop-types';
 
-export const ContactList = ({ list }) => {
+export const ContactList = ({ list, removeContact }) => {
 	return (
 		<ul className={css.contacts__list}>
-			{list.map(({ name, id, number }) => <li key={id}>{name}: {number}</li>)}
+			{list.map(({ name, id, number }) =>
+				<li className={css.contact} key={id}>
+					<span>{name}: {number}</span>
+					<button
+						id={id}
+						onClick={removeContact}
+						className={css.removeBtn}
+						type="button">
+						Delete
+					</button>
+				</li>
+			)}
 		</ul>
 	)
 }
